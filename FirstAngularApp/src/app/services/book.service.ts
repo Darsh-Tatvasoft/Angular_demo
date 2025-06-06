@@ -35,7 +35,21 @@ export class BookService {
       withCredentials: true,
     });
   }
+
+  updateBook(book: Book): Observable<any> {
+    return this.http.put(`${this.baseUrl}/Book/UpdateBook`, book, {
+      withCredentials: true,
+    });
+  }
+
+  updateBookAvailability(bookId: number, isavailable: boolean) {
+    debugger;
+    return this.http.patch(
+      `${this.baseUrl}/Book/UpdateAvailability?id=${bookId}`,
+      isavailable,
+      {
+        withCredentials: true,
+      }
+    );
+  }
 }
-
-
-

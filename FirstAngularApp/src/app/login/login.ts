@@ -4,28 +4,36 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
   imports: [CommonModule, FormsModule],
   templateUrl: './login.html',
-  styleUrls: ['./login.css']
+  styleUrls: ['./login.css'],
 })
 export class Login {
   email = '';
   password = '';
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(
+    private auth: AuthService,
+    private router: Router,
+    private cookieService: CookieService
+  ) {}
 
   onLogin() {
     this.auth.login(this.email, this.password).subscribe({
-      next: res => {
-        localStorage.setItem('token', res.token);
-        this.router.navigate(['/library/books']);
+      next: (res) => {
+        this.cookieService.set('JwtToken', res.token);
+        this.cookieService.set('RefreshToken', res.refreshToken);
+        setTimeout(() => {
+          this.router.navigate(['/library/books'], { replaceUrl: true });
+        }, 200);
       },
-      error: err => {
+      error: (err) => {
         console.log('Login failed: ' + err.error.message || 'Unknown error');
-      }
+      },
     });
   }
 }
