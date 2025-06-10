@@ -2,35 +2,32 @@
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Library System</a>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" (click)="toggleNavbar()">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarNav">
+    <div class="collapse navbar-collapse" [ngClass]="{ 'show': navbarOpen }" id="navbarNav">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/dashboard" routerLinkActive="active" data-bs-toggle="collapse"
-            data-bs-target="#navbarNav">Dashboard</a>
+          <a class="nav-link" routerLink="/dashboard" routerLinkActive="active" (click)="closeNavbar()">Dashboard</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/library/books" routerLinkActive="active" data-bs-toggle="collapse"
-            data-bs-target="#navbarNav">Books</a>
+          <a class="nav-link" routerLink="/library/books" routerLinkActive="active" (click)="closeNavbar()">Books</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/users" routerLinkActive="active" data-bs-toggle="collapse"
-            data-bs-target="#navbarNav">Users</a>
+          <a class="nav-link" routerLink="/users" routerLinkActive="active" (click)="closeNavbar()">Users</a>
         </li>
       </ul>
 
-      <div class="dropdown">
-        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
-          aria-expanded="false">
-          Account
-        </button>
-        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-          <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
-        </ul>
+      <div class="position-relative">
+        <div class="dropdown" [ngClass]="{ show: dropdownOpen }">
+          <button class="btn btn-primary dropdown-toggle" type="button" (click)="toggleDropdown()" aria-expanded="false">
+            Account
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end" [ngClass]="{ show: dropdownOpen }">
+            <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>

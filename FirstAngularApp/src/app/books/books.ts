@@ -15,6 +15,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
+import { DeleteDialogComponent } from './delete.book.modal';
+import { MatDialog } from '@angular/material/dialog';
 declare var bootstrap: any;
 
 @Component({
@@ -138,7 +140,8 @@ export class Books implements OnInit {
   constructor(
     private bookService: BookService,
     private cookieService: CookieService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private dialog: MatDialog
   ) {
     this.bookForm = this.fb.group({
       id: [0],
@@ -299,34 +302,30 @@ export class Books implements OnInit {
   }
 
   openDeleteModal(bookId: number): void {
-    this.bookToDeleteId = bookId;
-    const modalElement = document.getElementById('deleteBookModal');
-    if (modalElement) {
-      const modal = new bootstrap.Modal(modalElement);
-      modal.show();
-    }
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      width: '350px',
+      data: bookId,
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.confirmDelete(bookId);
+      }
+    });
   }
 
-  confirmDelete(): void {
-    if (!this.bookToDeleteId) return;
-
-    this.bookService.deleteBook(this.bookToDeleteId).subscribe({
+  confirmDelete(bookId: number): void {
+    this.bookService.deleteBook(bookId).subscribe({
       next: (res) => {
         if (!res.result) {
           console.error('Failed to delete book:', res.message);
           return;
         }
         console.log('Book deleted successfully.');
-        this.loadBooks();
-        this.bookToDeleteId = null;
-
-        const modalElement = document.getElementById('deleteBookModal');
-        if (modalElement) {
-          const modalInstance = bootstrap.Modal.getInstance(modalElement);
-          modalInstance?.hide();
-        }
+        this.loadBooks(); // reload list
       },
-      error: (error) => console.error('Failed to delete book:', error),
+      error: (err) => console.error('Failed to delete book:', err),
     });
   }
 

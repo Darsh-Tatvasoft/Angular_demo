@@ -1,0 +1,11 @@
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  left: auto;
+}
+
+@media (max-width: 991.98px) {
+  .dropdown-menu {
+    position: static;
+  }
+}
