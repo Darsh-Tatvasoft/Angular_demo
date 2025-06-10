@@ -9,13 +9,27 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card';
 declare var bootstrap: any;
 
 @Component({
   selector: 'app-books',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatTableModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSlideToggleModule,
+    MatDialogModule,
+    MatCardModule,
+  ],
   templateUrl: './books.html',
   styleUrls: ['./books.css'],
 })
@@ -24,46 +38,100 @@ export class Books implements OnInit {
   bookForm: FormGroup;
   bookToEditId: number | null = null;
   bookToDeleteId: number | null = null;
+  displayedColumns: string[] = [
+    'id',
+    'title',
+    'author',
+    'stockquantity',
+    'price',
+    'isavailable',
+    'publisheddate',
+    'action',
+  ];
+
+  objectKeys = Object.keys; // Required to iterate error keys in HTML
 
   bookFields = [
-    { key: 'title', label: 'Title', type: 'text', error: 'Title is required.' },
+    {
+      key: 'title',
+      label: 'Title',
+      type: 'text',
+      errors: {
+        required: 'Title is required.',
+        maxlength: 'Title cannot exceed 200 characters.',
+      },
+    },
     {
       key: 'author',
       label: 'Author',
       type: 'text',
-      error: 'Author is required.',
+      errors: {
+        required: 'Author is required.',
+        maxlength: 'Author cannot exceed 100 characters.',
+      },
     },
-    { key: 'isbn', label: 'ISBN', type: 'text', error: 'ISBN is required.' },
-    { key: 'genre', label: 'Genre', type: 'text', error: 'Genre is required.' },
+    {
+      key: 'isbn',
+      label: 'ISBN',
+      type: 'text',
+      errors: {
+        required: 'ISBN is required.',
+        maxlength: 'ISBN cannot exceed 20 characters.',
+      },
+    },
+    {
+      key: 'genre',
+      label: 'Genre',
+      type: 'text',
+      errors: {
+        required: 'Genre is required.',
+        maxlength: 'Genre cannot exceed 50 characters.',
+      },
+    },
     {
       key: 'language',
       label: 'Language',
       type: 'text',
-      error: 'Language is required.',
+      errors: {
+        required: 'Language is required.',
+        maxlength: 'Language cannot exceed 50 characters.',
+      },
     },
     {
       key: 'publisher',
       label: 'Publisher',
       type: 'text',
-      error: 'Publisher is required.',
+      errors: {
+        required: 'Publisher is required.',
+        maxlength: 'Publisher cannot exceed 100 characters.',
+      },
     },
     {
       key: 'price',
       label: 'Price',
       type: 'number',
-      error: 'Price must be greater than 0.',
+      errors: {
+        required: 'Price is required.',
+        min: 'Price must be greater than 0.01.',
+      },
     },
     {
       key: 'pagecount',
       label: 'Page Count',
       type: 'number',
-      error: 'Page count is required.',
+      errors: {
+        required: 'Page count is required.',
+        min: 'Page count must be at least 1.',
+      },
     },
     {
       key: 'stockquantity',
       label: 'Stock Quantity',
       type: 'number',
-      error: 'Stock quantity is required.',
+      errors: {
+        required: 'Stock quantity is required.',
+        min: 'Stock quantity must be at least 1.',
+      },
     },
   ];
 
@@ -73,7 +141,7 @@ export class Books implements OnInit {
     private fb: FormBuilder
   ) {
     this.bookForm = this.fb.group({
-      id: [0], // NEW: ID field
+      id: [0],
       title: ['', [Validators.required, Validators.maxLength(200)]],
       author: ['', [Validators.required, Validators.maxLength(100)]],
       isbn: ['', [Validators.required, Validators.maxLength(20)]],
@@ -94,8 +162,17 @@ export class Books implements OnInit {
 
   loadBooks(): void {
     this.bookService.getAllBooks().subscribe({
-      next: (response: Book[]) => (this.books = response ?? []),
-      error: (error) => console.error('Failed to load books:', error),
+      next: (res) => {
+        if (res.result) {
+          this.books = res.data ?? [];
+        } else {
+          console.error('Error loading books:', res.message);
+        }
+      },
+      error: (err) => {
+        const message = err?.error?.message || 'Unknown error';
+        console.error('Failed to load books:', message);
+      },
     });
   }
 
@@ -127,30 +204,40 @@ export class Books implements OnInit {
     this.bookToEditId = bookId;
 
     this.bookService.getBookData(bookId).subscribe({
-      next: (response: Book) => {
-        this.bookForm.patchValue({
-          id: response.id, // NEW: include ID
-          title: response.title,
-          author: response.author,
-          isbn: response.isbn,
-          genre: response.genre,
-          language: response.language,
-          publisher: response.publisher,
-          price: response.price,
-          pagecount: response.pagecount,
-          stockquantity: response.stockquantity,
-          publisheddate: response.publisheddate.split('T')[0],
-          isavailable: response.isavailable,
-        });
+      next: (response) => {
+        if (response.result && response.data) {
+          const book = response.data;
 
-        const modalElement = document.getElementById('bookModal');
-        if (modalElement) {
-          const modal = new bootstrap.Modal(modalElement);
-          modal.show();
+          this.bookForm.patchValue({
+            id: book.id,
+            title: book.title,
+            author: book.author,
+            isbn: book.isbn,
+            genre: book.genre,
+            language: book.language,
+            publisher: book.publisher,
+            price: book.price,
+            pagecount: book.pagecount,
+            stockquantity: book.stockquantity,
+            publisheddate: book.publisheddate.split('T')[0],
+            isavailable: book.isavailable,
+          });
+
+          const modalElement = document.getElementById('bookModal');
+          if (modalElement) {
+            const modal = new bootstrap.Modal(modalElement);
+            modal.show();
+          }
+        } else {
+          console.error('Failed to load book data:', response.message);
         }
       },
-      error: (error) =>
-        console.error('Failed to load book data for edit:', error),
+      error: (error) => {
+        console.error(
+          'Failed to load book data for edit:',
+          error?.error?.message || error.message || error
+        );
+      },
     });
   }
 
@@ -165,22 +252,40 @@ export class Books implements OnInit {
     if (bookData.id && bookData.id > 0) {
       // Edit
       this.bookService.updateBook(bookData).subscribe({
-        next: () => {
-          console.log('Book updated successfully.');
+        next: (res) => {
+          if (res.result === false) {
+            console.error('Failed to update book:', res.message);
+            return;
+          }
+          console.log(res.message || 'Book updated successfully.');
           this.closeModal();
           this.loadBooks();
         },
-        error: (error) => console.error('Failed to update book:', error),
+        error: (error) => {
+          console.error(
+            'Failed to update book:',
+            error?.error?.message || 'Unknown error'
+          );
+        },
       });
     } else {
       // Add
       this.bookService.addBook({ ...bookData, id: 0 }).subscribe({
-        next: () => {
-          console.log('Book added successfully.');
+        next: (res) => {
+          if (res.result === false) {
+            console.error('Failed to add book:', res.message);
+            return;
+          }
+          console.log(res.message || 'Book added successfully.');
           this.closeModal();
           this.loadBooks();
         },
-        error: (error) => console.error('Failed to add book:', error),
+        error: (error) => {
+          console.error(
+            'Failed to add book:',
+            error.message || 'Unknown error'
+          );
+        },
       });
     }
   }
@@ -206,7 +311,11 @@ export class Books implements OnInit {
     if (!this.bookToDeleteId) return;
 
     this.bookService.deleteBook(this.bookToDeleteId).subscribe({
-      next: () => {
+      next: (res) => {
+        if (!res.result) {
+          console.error('Failed to delete book:', res.message);
+          return;
+        }
         console.log('Book deleted successfully.');
         this.loadBooks();
         this.bookToDeleteId = null;
@@ -222,22 +331,27 @@ export class Books implements OnInit {
   }
 
   toggleAvailability(book: any) {
-    debugger;
     book.isavailable = !book.isavailable;
 
     this.bookService
       .updateBookAvailability(book.id, book.isavailable)
       .subscribe({
-        next: () => {
-          debugger;
+        next: (res) => {
+          if (!res.result) {
+            console.error('Failed to update availability:', res.message);
+            book.isavailable = !book.isavailable;
+            return;
+          }
 
           console.log(
-            `Book ${book.id} availability updated to ${book.available}`
+            `Book ${book.id} availability updated to ${book.isavailable}`
           );
         },
         error: (err) => {
-          debugger;
-          console.error('Failed to update availability:', err);
+          console.error(
+            'Failed to update availability:',
+            err?.error?.message || err
+          );
           book.isavailable = !book.isavailable;
         },
       });

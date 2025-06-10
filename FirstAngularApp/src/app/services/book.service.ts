@@ -12,8 +12,8 @@ export class BookService {
 
   constructor(private http: HttpClient) {}
 
-  getAllBooks(): Observable<Book[]> {
-    return this.http.get<Book[]>(`${this.baseUrl}/Book/Books`, {
+  getAllBooks(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/Book/Books`, {
       withCredentials: true,
     });
   }
@@ -30,8 +30,8 @@ export class BookService {
     });
   }
 
-  getBookData(id: number): Observable<Book> {
-    return this.http.get<Book>(`${this.baseUrl}/Book/EditBookData?id=${id}`, {
+  getBookData(id: number): Observable<{ data: Book; result: boolean; message: string }> {
+    return this.http.get<{ data: Book; result: boolean; message: string }>(`${this.baseUrl}/Book/EditBookData?id=${id}`, {
       withCredentials: true,
     });
   }
@@ -42,8 +42,10 @@ export class BookService {
     });
   }
 
-  updateBookAvailability(bookId: number, isavailable: boolean) {
-    debugger;
+  updateBookAvailability(
+    bookId: number,
+    isavailable: boolean
+  ): Observable<any> {
     return this.http.patch(
       `${this.baseUrl}/Book/UpdateAvailability?id=${bookId}`,
       isavailable,

@@ -1,59 +1,84 @@
-<div class="container mt-5 table-responsive text-nowrap">
+<mat-card class="mat-elevation-z3 p-4">
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h2>Book List</h2>
-    <button class="btn btn-outline-success" (click)="openAddModal()">
-      <i class="bi bi-plus-circle me-2"></i>Add Book
+    <button mat-stroked-button color="primary" (click)="openAddModal()">
+      <mat-icon class="me-1">add_circle</mat-icon>
+      Add Book
     </button>
-
   </div>
 
-  <table *ngIf="books.length > 0; else noData" class="table table-bordered table-striped">
-    <thead class="table-dark">
-      <tr>
-        <th>ID</th>
-        <th>Title</th>
-        <th>Author</th>
-        <th>Stock</th>
-        <th>Price</th>
-        <th>Available</th>
-        <th>Published Date</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let book of books">
-        <td>{{ book.id }}</td>
-        <td>{{ book.title }}</td>
-        <td>{{ book.author }}</td>
-        <td>{{ book.stockquantity }}</td>
-        <td>{{ book.price | currency: "INR" }}</td>
-        <td>
-          <div class="form-check form-switch d-flex justify-content-start">
-            <input class="form-check-input" type="checkbox" [checked]="book.isavailable"
-              (change)="toggleAvailability(book)" style="width: 3rem; height: 1.6rem;" />
-          </div>
-        </td>
-        <td>{{ book.publisheddate | date }}</td>
-        <td>
-          <button class="btn btn-outline-primary btn-sm me-2" (click)="openEditModal(book.id)">
-            <i class="bi bi-pencil"></i>
-          </button>
-          <button class="btn btn-outline-danger btn-sm" (click)="openDeleteModal(book.id)">
-            <i class="bi bi-trash"></i>
-          </button>
+  <table mat-table [dataSource]="books" class="mat-elevation-z2 full-width-table" *ngIf="books.length > 0; else noData">
 
-        </td>
-      </tr>
-    </tbody>
+    <!-- ID Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let book"> {{ book.id }} </td>
+    </ng-container>
+
+    <!-- Title Column -->
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef> Title </th>
+      <td mat-cell *matCellDef="let book"> {{ book.title }} </td>
+    </ng-container>
+
+    <!-- Author Column -->
+    <ng-container matColumnDef="author">
+      <th mat-header-cell *matHeaderCellDef> Author </th>
+      <td mat-cell *matCellDef="let book"> {{ book.author }} </td>
+    </ng-container>
+
+    <!-- Stock Quantity -->
+    <ng-container matColumnDef="stockquantity">
+      <th mat-header-cell *matHeaderCellDef> Stock </th>
+      <td mat-cell *matCellDef="let book"> {{ book.stockquantity }} </td>
+    </ng-container>
+
+    <!-- Price -->
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef> Price </th>
+      <td mat-cell *matCellDef="let book"> {{ book.price | currency: 'INR' }} </td>
+    </ng-container>
+
+    <!-- Is Available -->
+    <ng-container matColumnDef="isavailable">
+      <th mat-header-cell *matHeaderCellDef> Available </th>
+      <td mat-cell *matCellDef="let book">
+        <mat-slide-toggle [checked]="book.isavailable" (change)="toggleAvailability(book)"></mat-slide-toggle>
+      </td>
+    </ng-container>
+
+    <!-- Published Date -->
+    <ng-container matColumnDef="publisheddate">
+      <th mat-header-cell *matHeaderCellDef> Published Date </th>
+      <td mat-cell *matCellDef="let book"> {{ book.publisheddate | date }} </td>
+    </ng-container>
+
+    <!-- Actions -->
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef> Action </th>
+      <td mat-cell *matCellDef="let book">
+        <button mat-icon-button color="primary" (click)="openEditModal(book.id)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="openDeleteModal(book.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
   <ng-template #noData>
-    <div class="alert alert-warning text-center">No books found.</div>
+    <mat-card class="mt-4 text-center text-warning">
+      No books found.
+    </mat-card>
   </ng-template>
-</div>
+</mat-card>
 
 
-<!-- book.component.html -->
+
 <div class="modal fade" id="bookModal" tabindex="-1" aria-labelledby="bookModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <form [formGroup]="bookForm" (ngSubmit)="submitBook()" class="modal-content">
@@ -65,24 +90,32 @@
       </div>
 
       <div class="modal-body row g-3">
+        <!-- Dynamic Fields -->
         <div class="col-md-6" *ngFor="let field of bookFields">
           <label [for]="field.key" class="form-label">{{ field.label }}</label>
-          <input [type]="field.type" [formControlName]="field.key" [id]="field.key" class="form-control" />
-          <div *ngIf="bookForm.get(field.key)?.invalid && bookForm.get(field.key)?.touched" class="text-danger small">
-            {{ field.error }}
+          <input [type]="field.type" [id]="field.key" [formControlName]="field.key" class="form-control"
+            [class.is-invalid]="bookForm.get(field.key)?.invalid && bookForm.get(field.key)?.touched" />
+
+          <div *ngIf="bookForm.get(field.key)?.touched && bookForm.get(field.key)?.errors" class="text-danger small">
+            <div *ngFor="let errKey of objectKeys(bookForm.get(field.key)?.errors)">
+              {{ field.errors[errKey] }}
+            </div>
           </div>
         </div>
 
+        <!-- Published Date -->
         <div class="col-md-6">
           <label for="publisheddate" class="form-label">Published Date</label>
-          <input type="date" formControlName="publisheddate" id="publisheddate" class="form-control" />
+          <input type="date" id="publisheddate" formControlName="publisheddate" class="form-control"
+            [class.is-invalid]="bookForm.get('publisheddate')?.invalid && bookForm.get('publisheddate')?.touched" />
           <div *ngIf="bookForm.get('publisheddate')?.invalid && bookForm.get('publisheddate')?.touched"
             class="text-danger small">
             Published Date is required.
           </div>
         </div>
 
-        <div class="col-md-6 d-flex align-items-center">
+        <!-- Is Available -->
+        <div class="col-md-6 d-flex align-items-center mt-3">
           <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" id="isavailable" formControlName="isavailable"
               style="width: 3rem; height: 1.6rem;" />
@@ -98,6 +131,7 @@
         </button>
       </div>
     </form>
+
   </div>
 </div>
 
