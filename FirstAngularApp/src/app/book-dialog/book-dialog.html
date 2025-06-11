@@ -1,0 +1,47 @@
+<h2 mat-dialog-title>
+  {{ data.bookToEditId ? 'Edit Book' : 'Add New Book' }}
+</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="bookForm" (ngSubmit)="submitBook()" class="row g-3">
+    <div class="col-md-6" *ngFor="let field of bookFields">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>{{ field.label }}</mat-label>
+        <input matInput [type]="field.type" [formControlName]="field.key" [errorStateMatcher]="matcher" />
+
+        <mat-error *ngIf="bookForm.get(field.key)?.hasError('required')">
+          {{ field.errors['required'] }}
+        </mat-error>
+        <mat-error *ngIf="bookForm.get(field.key)?.hasError('maxlength')">
+          {{ field.errors['maxlength'] }}
+        </mat-error>
+        <mat-error *ngIf="bookForm.get(field.key)?.hasError('min')">
+          {{ field.errors['min'] }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Published Date</mat-label>
+        <input matInput type="date" formControlName="publisheddate" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="bookForm.get('publisheddate')?.hasError('required')">
+          Published Date is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-6 d-flex align-items-center">
+      <mat-slide-toggle formControlName="isavailable" color="primary">
+        Available
+      </mat-slide-toggle>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="primary" [disabled]="bookForm.invalid" (click)="submitBook()">
+    {{ data.bookToEditId ? 'Update Book' : 'Add Book' }}
+  </button>
+</mat-dialog-actions>
