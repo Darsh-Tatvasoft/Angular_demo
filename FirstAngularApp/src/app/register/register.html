@@ -1,0 +1,55 @@
+<div class="register-container">
+  <mat-card class="mat-elevation-z4 register-card">
+    <mat-card-title class="mb-3">Register</mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+        <ng-container *ngFor="let field of registerFields">
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>{{ field.label }}</mat-label>
+            <input matInput [type]="field.type" [formControlName]="field.key" [errorStateMatcher]="matcher" />
+
+            <!-- <mat-error *ngIf="registerForm.get(field.key)?.hasError('required')">
+              {{ field.errors['required'] }}
+            </mat-error>
+
+            <mat-error *ngIf="registerForm.get(field.key)?.hasError('minlength')">
+              {{ field.errors['minlength'] }}
+            </mat-error>
+
+            <mat-error *ngIf="registerForm.get(field.key)?.hasError('maxlength')">
+              {{ field.errors['maxlength'] }}
+            </mat-error>
+
+            <mat-error *ngIf="registerForm.get(field.key)?.hasError('pattern')">
+              {{ field.errors['pattern'] }}
+            </mat-error>
+
+            <mat-error *ngIf="registerForm.get(field.key)?.hasError('email')">
+              {{ field.errors['email'] }}
+            </mat-error>
+
+            <mat-error *ngIf="registerForm.get('confirmPassword')?.hasError('passwordMismatch')">
+              {{ field.errors['passwordMismatch'] }}
+            </mat-error> -->
+            <mat-error *ngIf="registerForm.get(field.key)?.errors && registerForm.get(field.key)?.touched">
+              {{
+              getFirstErrorMessage(field.key, field.errors)
+              }}
+            </mat-error>
+
+          </mat-form-field>
+        </ng-container>
+
+        <button mat-raised-button color="primary" class="w-100" type="submit" [disabled]="registerForm.invalid">
+          Register
+        </button>
+      </form>
+      <p class="text-center mt-3">
+        <a routerLink="/login" class="back-link">
+          <mat-icon class="me-1 bg-primary-subtle rounded-circle" >arrow_back</mat-icon>
+          Back to login
+        </a>
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>

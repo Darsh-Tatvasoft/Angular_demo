@@ -1,11 +1,11 @@
 import { NgClass } from '@angular/common';
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-header',
-  imports: [NgClass],
+  imports: [NgClass, RouterModule],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })

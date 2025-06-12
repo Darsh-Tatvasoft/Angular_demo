@@ -1,0 +1,29 @@
+.register-container {
+  max-width: 450px;
+  margin: auto;
+  padding: 2rem 0;
+}
+
+.register-card {
+  padding: 1.5rem;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.mb-3 {
+  margin-bottom: 1rem;
+}
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  font-weight: 500;
+  margin-top: 16px;
+}
+
+.back-link mat-icon {
+  font-size: 20px;
+  padding-top: 2px;
+}
