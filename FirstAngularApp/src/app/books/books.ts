@@ -52,7 +52,7 @@ export class Books implements OnInit {
     'action',
   ];
 
-  objectKeys = Object.keys; // Required to iterate error keys in HTML
+  objectKeys = Object.keys; 
 
   // bookFields = [
   //   {

@@ -1,0 +1,7 @@
+<button (click)="increment()">+</button>
+<span>{{ counter$ | async }}</span>
+<button (click)="decrement()">-</button>
+<button (click)="reset()">Reset</button>
+<input #counterInput type="number" />
+<button (click)="setValue(counterInput.value)">Set Value</button>
+<app-todo></app-todo>
