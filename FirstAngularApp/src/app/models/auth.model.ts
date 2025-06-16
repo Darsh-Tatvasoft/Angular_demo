@@ -13,3 +13,9 @@ export interface Register {
   password: string;
   confirmPassword: string;
 }
+
+export interface ApiResponse<T> {
+  success: boolean;
+  message: string;
+  data: T;
+}

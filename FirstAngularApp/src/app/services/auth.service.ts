@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
-import { Register } from '../models/auth.model';
+import { ApiResponse, Register } from '../models/auth.model';
 
 @Injectable({
   providedIn: 'root',
@@ -24,5 +24,13 @@ export class AuthService {
     return this.http.post(`${this.baseUrl}/Authentication/register`, user, {
       withCredentials: true,
     });
-  };
+  }
+
+  getToken(refreshToken: string) {
+    return this.http.post<ApiResponse<any | null>>(
+      `${this.baseUrl}/Tokens/Tokens`,
+      JSON.stringify(refreshToken),
+      { headers: { 'Content-Type': 'application/json', skip: 'true' } }
+    );
+  }
 }

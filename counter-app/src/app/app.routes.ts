@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
-import { TodoComponent } from './todo';
+import { TodoComponent } from './todo/todo';
 import { App } from './app';
 
-export const routes: Routes = [
-];
+export const routes: Routes = [];

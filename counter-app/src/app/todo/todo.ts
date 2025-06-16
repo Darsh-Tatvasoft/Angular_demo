@@ -1,14 +1,16 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { addTodo, toggleTodo, deleteTodo } from './todo.actions';
-import { todoAdapter, TodoState } from './todo.reducer'; // Import TodoState
+import { TodoState, todoAdapter } from './todo.reducer';
 import { Observable } from 'rxjs';
 import { Todo } from './todo.model';
-import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-todo',
-  imports: [AsyncPipe],
+  standalone: true,
+  imports: [CommonModule, AsyncPipe],
   template: `
     <input #todoInput placeholder="Add a task" />
     <button (click)="addTodo(todoInput.value)">Add</button>
@@ -30,7 +32,6 @@ export class TodoComponent {
   todos$: Observable<Todo[]>;
 
   constructor(private store: Store<{ todos: TodoState }>) {
-    // Use TodoState
     this.todos$ = this.store.select((state) =>
       todoAdapter.getSelectors().selectAll(state.todos)
     );

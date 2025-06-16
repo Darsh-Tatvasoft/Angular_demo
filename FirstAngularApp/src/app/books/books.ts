@@ -52,7 +52,7 @@ export class Books implements OnInit {
     'action',
   ];
 
-  objectKeys = Object.keys; 
+  objectKeys = Object.keys;
 
   // bookFields = [
   //   {
@@ -340,7 +340,8 @@ export class Books implements OnInit {
           const book = response.data;
 
           const dialogRef = this.dialog.open(BookDialog, {
-            width: '800px',
+            width: '900px',
+            height: '700px',
             data: {
               bookToEditId: bookId,
               bookData: {

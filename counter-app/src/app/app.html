@@ -1,7 +1,27 @@
-<button (click)="increment()">+</button>
+<!-- <button (click)="increment()">+</button>
 <span>{{ counter$ | async }}</span>
 <button (click)="decrement()">-</button>
 <button (click)="reset()">Reset</button>
 <input #counterInput type="number" />
 <button (click)="setValue(counterInput.value)">Set Value</button>
-<app-todo></app-todo>
+<app-todo></app-todo> -->
+<!-- Highlight is lightblue, on leave resets to lightgray -->
+<p [appHighlight]="'lightblue'" [defaultColor]="'lightgray'">Hover me to see custom colors</p>
+<!-- Highlight is red, on leave resets to transparent -->
+<p appHighlight="red">Hover me to see red highlight</p>
+<!-- Uses default highlight color: yellow, and default reset color: transparent -->
+<p appHighlight>Hover me to see default yellow highlight</p>
+
+<ul>
+  <li *appTimes="5; let index=index; let even=isEven">
+    <p [appHighlight]="even ? 'lightblue' : 'red'" [defaultColor]="'lightgray'">
+      Item {{index}} is {{even ? 'even' : 'odd'}}
+    </p>
+  </li>
+</ul>
+<p>{{ birthday | date:'fullDate' | uppercase }}</p>
+<p>{{ 'This is a long text' | truncate:10 }}</p>
+<p>{{ 'This is a long text' | truncate:5:'!!!' }}</p>
+<p>{{ 'Angular' | reverse }}</p>
+<p [innerHTML]="'Search for text in this content' | highlight:'text'"></p>
+<!-- <div [appDraggable]="item" (dragged)="onItemDragged($event)"></div> -->

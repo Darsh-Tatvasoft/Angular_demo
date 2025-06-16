@@ -12,6 +12,7 @@ import {
 } from '@angular/platform-browser';
 import { provideStore } from '@ngrx/store';
 import { counterReducer } from './counter.reducer';
+import { todoReducer } from './todo/todo.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -21,6 +22,7 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(withEventReplay()),
     provideStore({
       counter: counterReducer, // Register your reducer
+      todos: todoReducer, // Register your reducer
     }),
   ],
 };
