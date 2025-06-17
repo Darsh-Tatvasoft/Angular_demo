@@ -2,3 +2,14 @@
   background-color: red;
   color: white;
 }
+/* Ensure proper animation container */
+router-outlet {
+  display: block;
+  position: relative;
+}
+
+/* Make route components take full height */
+router-outlet + * {
+  display: block;
+  height: 100%;
+}

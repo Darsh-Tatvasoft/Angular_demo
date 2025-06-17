@@ -11,6 +11,7 @@ import {
   withEventReplay,
 } from '@angular/platform-browser';
 import { provideStore } from '@ngrx/store';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { counterReducer } from './counter.reducer';
 import { todoReducer } from './todo/todo.reducer';
 
@@ -24,5 +25,6 @@ export const appConfig: ApplicationConfig = {
       counter: counterReducer, // Register your reducer
       todos: todoReducer, // Register your reducer
     }),
+    provideAnimationsAsync(),
   ],
 };

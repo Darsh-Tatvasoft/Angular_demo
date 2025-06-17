@@ -1,10 +1,10 @@
-<!-- <button (click)="increment()">+</button>
+<button (click)="increment()">+</button>
 <span>{{ counter$ | async }}</span>
 <button (click)="decrement()">-</button>
 <button (click)="reset()">Reset</button>
 <input #counterInput type="number" />
 <button (click)="setValue(counterInput.value)">Set Value</button>
-<app-todo></app-todo> -->
+<app-todo></app-todo>
 <!-- Highlight is lightblue, on leave resets to lightgray -->
 <p [appHighlight]="'lightblue'" [defaultColor]="'lightgray'">Hover me to see custom colors</p>
 <!-- Highlight is red, on leave resets to transparent -->
@@ -24,4 +24,10 @@
 <p>{{ 'This is a long text' | truncate:5:'!!!' }}</p>
 <p>{{ 'Angular' | reverse }}</p>
 <p [innerHTML]="'Search for text in this content' | highlight:'text'"></p>
+<app-fade></app-fade>
+<a routerLink="/about">change page</a>
 <!-- <div [appDraggable]="item" (dragged)="onItemDragged($event)"></div> -->
+<app-parent></app-parent>
+
+
+<!-- <router-outlet @routeAnimations></router-outlet> -->
