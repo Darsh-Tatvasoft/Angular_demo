@@ -1,1 +1,51 @@
-<p>parent works!</p>
+<!-- Parent to Child Communication
+Method 1: Input Binding -->
+<!-- <h2>Parent Component</h2>
+<p>Message to Child: {{ parentMessage }}</p>
+<app-child [messageFromParent]="parentMessage"></app-child> -->
+
+<!-- Method 2: Using ViewChild -->
+<!--
+<h2>Parent Component</h2>
+<button (click)="updateChild()">Toggle Child message</button>
+<app-child></app-child> -->
+
+
+<!-- Child to Parent Communication
+Method 1: Output Event Emitter -->
+<!--
+  <h2>Parent Component</h2>
+  <h3>Communication from Child</h3>
+  <p>
+    Click the button in the Child component to send a message back to Parent.
+  </p>
+  <p>Message from Child: {{ childMessage }}</p>
+  <app-child (messageEvent)="receiveMessage($event)"></app-child> -->
+
+<!-- Method 2: ViewChild with Direct Access -->
+<!--
+<h2>Parent Component</h2>
+<button (click)="getChildData()">Get Child Data</button>
+<p>Child Data: {{ childData }}</p>
+<app-child></app-child> -->
+
+
+<!-- Child to Child Communication (Siblings)
+Method 1: Using Parent as Mediator -->
+<!-- Method 2: Using a Service (Recommended for complex scenarios) -->
+<!-- <h2>Parent Component</h2>
+<app-child (messageEvent)="message = $event"></app-child>
+<app-child-2 [message]="message"></app-child-2>  -->
+
+
+
+<!-- Parent to Parent Communication
+ Method 1: Use a Shared Service -->
+<!-- <h2>Parent 1 Component</h2>
+<input [(ngModel)]="message" placeholder="Enter message">
+<button (click)="sendMessage()">Send to Parent 2</button> -->
+
+<!-- Method 2: Use NgRx -->
+<h2>Parent 1 Component</h2>
+<input [(ngModel)]="message" placeholder="Enter message">
+<button (click)="send()">Send via NgRx</button>

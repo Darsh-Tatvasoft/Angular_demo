@@ -23,10 +23,11 @@ import {
 } from '@angular/animations';
 import { Child } from './child/child';
 import { Parent } from './parent/parent';
+import { Parent2 } from './parent-2/parent-2';
 
 @Component({
   selector: 'app-root',
-  standalone: true, 
+  standalone: true,
   imports: [
     AsyncPipe,
     TodoComponent,
@@ -40,8 +41,8 @@ import { Parent } from './parent/parent';
     FadeComponent,
     RouterOutlet,
     RouterModule,
-    Child,
     Parent,
+    Parent2,
   ],
   templateUrl: `./app.html`,
   styleUrls: ['./app.css'],

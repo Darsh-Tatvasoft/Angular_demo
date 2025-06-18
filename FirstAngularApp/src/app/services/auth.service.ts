@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Observable } from 'rxjs';
+import { catchError, Observable, skip, throwError } from 'rxjs';
 import { ApiResponse, Register } from '../models/auth.model';
 
 @Injectable({
@@ -26,11 +26,22 @@ export class AuthService {
     });
   }
 
-  getToken(refreshToken: string) {
-    return this.http.post<ApiResponse<any | null>>(
-      `${this.baseUrl}/Tokens/Tokens`,
-      JSON.stringify(refreshToken),
-      { headers: { 'Content-Type': 'application/json', skip: 'true' } }
-    );
+  getToken(refreshToken: string): Observable<any> {
+    return this.http
+      .post(
+        `${this.baseUrl}/Authentication/Tokens?token=${refreshToken}`,
+        {
+          headers: {
+            skip: 'true',
+          },
+          withCredentials: true,
+        }
+      )
+      .pipe(
+        catchError((error) => {
+          console.error('Token refresh failed:', error);
+          return throwError(() => error);
+        })
+      );
   }
 }

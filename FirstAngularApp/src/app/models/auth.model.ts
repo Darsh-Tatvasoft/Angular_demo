@@ -15,7 +15,7 @@ export interface Register {
 }
 
 export interface ApiResponse<T> {
-  success: boolean;
+  result: boolean;
   message: string;
   data: T;
 }

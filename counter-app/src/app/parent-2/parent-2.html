@@ -1,0 +1,8 @@
+<!-- Parent to Parent Communication
+ Method 1: Use a Shared Service -->
+<!-- <h2>Parent 2 Component</h2>
+<p>Message from Parent 1: {{ receivedMessage }}</p> -->
+
+<!-- Method 2: Use NgRx -->
+<h2>Parent 2 Component</h2>
+<p>Message from Parent 1: {{ message$ | async }}</p>
