@@ -1,0 +1,31 @@
+<div class="overflow-x-auto">
+  <table class="min-w-full border-collapse border border-gray-300">
+    <thead class="bg-gray-100">
+      <tr>
+        <th *ngFor="let column of columns" class="text-left p-2 cursor-pointer" (click)="sort(column)">
+          {{ column.header }}
+          <span *ngIf="sortField === column.field">
+            {{ sortDirection === 'asc' ? '▲' : '▼' }}
+          </span>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of paginatedData" class="hover:bg-gray-50 cursor-pointer" (click)="onRowClick(row)">
+        <td *ngFor="let column of columns" class="p-2 border-t border-gray-200">
+          {{ row[column.field] }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="enablePagination" class="flex items-center justify-center mt-2 gap-2">
+  <button class="px-2 py-1 border rounded" [disabled]="currentPage === 1" (click)="changePage(-1)">
+    Prev
+  </button>
+  <span>Page {{ currentPage }} of {{ totalPages() }}</span>
+  <button class="px-2 py-1 border rounded" [disabled]="currentPage === totalPages()" (click)="changePage(1)">
+    Next
+  </button>
+</div>

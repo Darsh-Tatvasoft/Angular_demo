@@ -1,0 +1,18 @@
+<app-button label="Save" [loading]="isSaving" color="primary" (clicked)="saveData()">
+</app-button>
+
+
+
+
+<app-button label="Open Modal" (clicked)="modalOpen = true"></app-button>
+
+<app-modal [title]="'Edit Details'" [isOpen]="modalOpen" (closed)="modalOpen = false">
+  <p>Modal Content Here</p>
+</app-modal>
+
+
+
+
+<app-table [columns]="columns" [data]="data" [pageSize]="3" [enablePagination]="true"
+  (rowClicked)="handleRowClick($event)">
+</app-table>

@@ -1,0 +1,11 @@
+<div class="modal-backdrop" *ngIf="isOpen">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>{{ title }}</h3>
+      <button (click)="close()">X</button>
+    </div>
+    <div class="modal-content">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>
