@@ -1,0 +1,24 @@
+<!-- <div class="form-group">
+  <label>{{ label }}</label>
+
+  <ng-container [ngSwitch]="type">
+    <input *ngSwitchCase="'text'" [placeholder]="placeholder" type="text" [formControl]="control"
+      class="form-control" />
+    <input *ngSwitchCase="'email'" [placeholder]="placeholder" type="email" [formControl]="control"
+      class="form-control" />
+    <input *ngSwitchCase="'password'" [placeholder]="placeholder" type="password" [formControl]="control"
+      class="form-control" />
+    <input *ngSwitchCase="'number'" [placeholder]="placeholder" type="number" [formControl]="control"
+      class="form-control" />
+    <textarea *ngSwitchCase="'textarea'" [placeholder]="placeholder" [formControl]="control"
+      class="form-control"></textarea>
+    <select *ngSwitchCase="'select'" [formControl]="control" class="form-control">
+      <option value="">Select {{ label }}</option>
+      <option *ngFor="let opt of options" [value]="opt">{{ opt }}</option>
+    </select>
+  </ng-container>
+
+  <div *ngIf="control.invalid && (control.dirty || control.touched)" class="error">
+    {{ errorMessage }}
+  </div>
+</div> -->

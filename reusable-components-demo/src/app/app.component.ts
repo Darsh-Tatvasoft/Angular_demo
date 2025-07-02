@@ -12,7 +12,6 @@ import { TableComponent } from './shared/components/table/table.component';
 export class AppComponent {
   title = 'reusable-components-demo';
 
-  // Fix: add missing variables
   isSaving = false;
   modalOpen = false;
 
