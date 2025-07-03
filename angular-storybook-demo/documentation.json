@@ -223,7 +223,7 @@
         },
         {
             "name": "FormFieldComponent",
-            "id": "component-FormFieldComponent-6687f94282c289a1d0d158f8c6fc45855ad1571ced5734f1bbe092438076a86c155e5b5342d4d66526c95707f0e0785da99f33c571c9cc037c1dc01489a8e75c",
+            "id": "component-FormFieldComponent-91f15ab59ff39f02e4495e235a466a42e2086b7cbf167b9d6d656395185d65acbadee04c4e4bbb9c842ecef3727795931218e953ebafe0a4df15fadcbc7b1214",
             "file": "src/app/shared/form-field/form-field.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -231,20 +231,20 @@
             "outputs": [],
             "providers": [
                 {
-                    "name": "{\n    provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => FormFieldComponent), multi: true\n}",
+                    "name": "{\n    provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => FormFieldComponent), multi: true,\n}",
                     "type": "component"
                 },
                 {
-                    "name": "{\n    provide: NG_VALIDATORS, useExisting: forwardRef(() => FormFieldComponent), multi: true\n}",
+                    "name": "{\n    provide: NG_VALIDATORS, useExisting: forwardRef(() => FormFieldComponent), multi: true,\n}",
                     "type": "component"
                 }
             ],
             "selector": "app-form-field",
             "styleUrls": [],
             "styles": [
-                "\n    .form-field {\n      margin-bottom: 1rem;\n      width: 100%;\n    }\n\n    label {\n      display: block;\n      margin-bottom: 0.5rem;\n      font-weight: 500;\n    }\n\n    .input-container {\n      display: flex;\n      align-items: center;\n      border: 1px solid #ccc;\n      border-radius: 4px;\n      padding: 0.5rem;\n      transition: border-color 0.3s;\n    }\n\n    .input-container input {\n      flex: 1;\n      border: none;\n      outline: none;\n      background: transparent;\n    }\n\n    .form-field.invalid .input-container {\n      border-color: #e74c3c;\n    }\n\n    .error-messages {\n      margin-top: 0.5rem;\n      color: #e74c3c;\n      font-size: 0.875rem;\n    }\n\n    .error-message {\n      margin-top: 0.25rem;\n    }\n  "
+                "\n      .form-field {\n        margin-bottom: 1rem;\n        width: 100%;\n      }\n\n      label {\n        display: block;\n        margin-bottom: 0.5rem;\n        font-weight: 500;\n      }\n\n      .input-container {\n        display: flex;\n        align-items: center;\n        border: 1px solid #ccc;\n        border-radius: 4px;\n        padding: 0.5rem;\n        transition: border-color 0.3s;\n      }\n\n      .input-container input {\n        flex: 1;\n        border: none;\n        outline: none;\n        background: transparent;\n      }\n\n      .form-field.invalid .input-container {\n        border-color: #e74c3c;\n      }\n\n      .error-messages {\n        margin-top: 0.5rem;\n        color: #e74c3c;\n        font-size: 0.875rem;\n      }\n\n      .error-message {\n        margin-top: 0.25rem;\n      }\n    "
             ],
-            "template": "<div class=\"form-field\" [class.invalid]=\"hasError\">\n  <label *ngIf=\"label\" [for]=\"id\">{{ label }}</label>\n\n  <div class=\"input-container\">\n    <input\n      #input\n      [id]=\"id\"\n      [type]=\"type\"\n      [value]=\"value\"\n      [placeholder]=\"placeholder\"\n      [disabled]=\"disabled\"\n      (input)=\"onInput($event)\"\n      (blur)=\"onBlur()\"\n    />\n\n    <ng-content select=\"[suffix]\"></ng-content>\n  </div>\n\n  <div *ngIf=\"hasError\" class=\"error-messages\">\n    <div *ngFor=\"let error of errorMessages\" class=\"error-message\">\n      {{ error }}\n    </div>\n  </div>\n</div>\n",
+            "template": "<div class=\"form-field\" [class.invalid]=\"hasError\">\n  <label *ngIf=\"label\" [for]=\"id\">{{ label }}</label>\n\n  <div class=\"input-container\">\n    <input\n      #input\n      [id]=\"id\"\n      [type]=\"type\"\n      [value]=\"value\"\n      [placeholder]=\"placeholder\"\n      [disabled]=\"disabled\"\n      [formControl]=\"formControl\"\n      (input)=\"onInput($event)\"\n      (blur)=\"onBlur()\"\n    />\n\n    <ng-content select=\"[suffix]\"></ng-content>\n  </div>\n\n  <div *ngIf=\"hasError\" class=\"error-messages\">\n    <div *ngFor=\"let error of errorMessages\" class=\"error-message\">\n      {{ error }}\n    </div>\n  </div>\n</div>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -254,8 +254,16 @@
                     "defaultValue": "false",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 152,
+                    "line": 126,
                     "type": "boolean",
+                    "decorators": []
+                },
+                {
+                    "name": "formControl",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 133,
+                    "type": "FormControl",
                     "decorators": []
                 },
                 {
@@ -263,7 +271,7 @@
                     "defaultValue": "''",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 148,
+                    "line": 122,
                     "type": "string",
                     "decorators": []
                 },
@@ -272,7 +280,7 @@
                     "defaultValue": "''",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 149,
+                    "line": 123,
                     "type": "string",
                     "decorators": []
                 },
@@ -280,7 +288,7 @@
                     "name": "max",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 158,
+                    "line": 132,
                     "type": "number",
                     "decorators": []
                 },
@@ -288,7 +296,7 @@
                     "name": "maxLength",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 155,
+                    "line": 129,
                     "type": "number",
                     "decorators": []
                 },
@@ -296,7 +304,7 @@
                     "name": "min",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 157,
+                    "line": 131,
                     "type": "number",
                     "decorators": []
                 },
@@ -304,7 +312,7 @@
                     "name": "minLength",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 154,
+                    "line": 128,
                     "type": "number",
                     "decorators": []
                 },
@@ -312,7 +320,7 @@
                     "name": "pattern",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 156,
+                    "line": 130,
                     "type": "string | RegExp",
                     "decorators": []
                 },
@@ -321,7 +329,7 @@
                     "defaultValue": "''",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 151,
+                    "line": 125,
                     "type": "string",
                     "decorators": []
                 },
@@ -330,7 +338,7 @@
                     "defaultValue": "false",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 153,
+                    "line": 127,
                     "type": "boolean",
                     "decorators": []
                 },
@@ -339,7 +347,7 @@
                     "defaultValue": "'text'",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 150,
+                    "line": 124,
                     "type": "\"text\" | \"email\" | \"password\" | \"number\" | \"date\"",
                     "decorators": []
                 }
@@ -350,7 +358,7 @@
                     "defaultValue": "new EventEmitter<string>()",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 160,
+                    "line": 135,
                     "type": "EventEmitter"
                 }
             ],
@@ -364,7 +372,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 165
+                    "line": 140
                 },
                 {
                     "name": "inputRef",
@@ -374,7 +382,7 @@
                     "indexKey": "",
                     "optional": true,
                     "description": "",
-                    "line": 162,
+                    "line": 137,
                     "decorators": [
                         {
                             "name": "ViewChild",
@@ -394,7 +402,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 167,
+                    "line": 142,
                     "modifierKind": [
                         123
                     ]
@@ -408,7 +416,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 168,
+                    "line": 143,
                     "modifierKind": [
                         123
                     ]
@@ -422,7 +430,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 164
+                    "line": 139
                 }
             ],
             "methodsClass": [
@@ -439,7 +447,7 @@
                     "optional": false,
                     "returnType": "boolean",
                     "typeParameters": [],
-                    "line": 251,
+                    "line": 234,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -463,7 +471,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 170,
+                    "line": 145,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -473,7 +481,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 188,
+                    "line": 163,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -490,7 +498,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 180,
+                    "line": 155,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -526,7 +534,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 200,
+                    "line": 175,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -563,7 +571,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 204,
+                    "line": 179,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -592,7 +600,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 208,
+                    "line": 183,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -621,7 +629,7 @@
                     "optional": false,
                     "returnType": "ValidationErrors | null",
                     "typeParameters": [],
-                    "line": 212,
+                    "line": 192,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -650,7 +658,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 193,
+                    "line": 168,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -683,15 +691,23 @@
                 {
                     "name": "ReactiveFormsModule",
                     "type": "module"
+                },
+                {
+                    "name": "MatFormFieldModule",
+                    "type": "module"
+                },
+                {
+                    "name": "MatInputModule",
+                    "type": "module"
                 }
             ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import {\r\n  Component, Input, Output, EventEmitter,\r\n  forwardRef, ViewChild, ElementRef, AfterViewInit\r\n} from '@angular/core';\r\nimport {\r\n  NG_VALUE_ACCESSOR, ControlValueAccessor,\r\n  NG_VALIDATORS, Validator, AbstractControl,\r\n  ValidationErrors, FormsModule, ReactiveFormsModule\r\n} from '@angular/forms';\r\nimport { CommonModule } from '@angular/common';\r\n\r\n@Component({\r\n  selector: 'app-form-field',\r\n  standalone: true,\r\n  imports: [CommonModule, FormsModule, ReactiveFormsModule],\r\n  template: `\r\n    <div class=\"form-field\" [class.invalid]=\"hasError\">\r\n      <label *ngIf=\"label\" [for]=\"id\">{{ label }}</label>\r\n\r\n      <div class=\"input-container\">\r\n        <input\r\n          #input\r\n          [id]=\"id\"\r\n          [type]=\"type\"\r\n          [value]=\"value\"\r\n          [placeholder]=\"placeholder\"\r\n          [disabled]=\"disabled\"\r\n          (input)=\"onInput($event)\"\r\n          (blur)=\"onBlur()\"\r\n        />\r\n\r\n        <ng-content select=\"[suffix]\"></ng-content>\r\n      </div>\r\n\r\n      <div *ngIf=\"hasError\" class=\"error-messages\">\r\n        <div *ngFor=\"let error of errorMessages\" class=\"error-message\">\r\n          {{ error }}\r\n        </div>\r\n      </div>\r\n    </div>\r\n  `,\r\n  styles: [`\r\n    .form-field {\r\n      margin-bottom: 1rem;\r\n      width: 100%;\r\n    }\r\n\r\n    label {\r\n      display: block;\r\n      margin-bottom: 0.5rem;\r\n      font-weight: 500;\r\n    }\r\n\r\n    .input-container {\r\n      display: flex;\r\n      align-items: center;\r\n      border: 1px solid #ccc;\r\n      border-radius: 4px;\r\n      padding: 0.5rem;\r\n      transition: border-color 0.3s;\r\n    }\r\n\r\n    .input-container input {\r\n      flex: 1;\r\n      border: none;\r\n      outline: none;\r\n      background: transparent;\r\n    }\r\n\r\n    .form-field.invalid .input-container {\r\n      border-color: #e74c3c;\r\n    }\r\n\r\n    .error-messages {\r\n      margin-top: 0.5rem;\r\n      color: #e74c3c;\r\n      font-size: 0.875rem;\r\n    }\r\n\r\n    .error-message {\r\n      margin-top: 0.25rem;\r\n    }\r\n  `],\r\n  providers: [\r\n    {\r\n      provide: NG_VALUE_ACCESSOR,\r\n      useExisting: forwardRef(() => FormFieldComponent),\r\n      multi: true\r\n    },\r\n    {\r\n      provide: NG_VALIDATORS,\r\n      useExisting: forwardRef(() => FormFieldComponent),\r\n      multi: true\r\n    }\r\n  ]\r\n})\r\nexport class FormFieldComponent implements ControlValueAccessor, Validator, AfterViewInit {\r\n  @Input() id: string = '';\r\n  @Input() label: string = '';\r\n  @Input() type: 'text' | 'email' | 'password' | 'number' | 'date' = 'text';\r\n  @Input() placeholder: string = '';\r\n  @Input() disabled: boolean = false;\r\n  @Input() required: boolean = false;\r\n  @Input() minLength?: number;\r\n  @Input() maxLength?: number;\r\n  @Input() pattern?: string | RegExp;\r\n  @Input() min?: number;\r\n  @Input() max?: number;\r\n\r\n  @Output() valueChange = new EventEmitter<string>();\r\n\r\n  @ViewChild('input') inputRef?: ElementRef<HTMLInputElement>;\r\n\r\n  value: string = '';\r\n  errorMessages: string[] = [];\r\n\r\n  private onChange: (value: string) => void = () => {};\r\n  private onTouched: () => void = () => {};\r\n\r\n  ngAfterViewInit() {\r\n    if (this.inputRef) {\r\n      this.inputRef.nativeElement.value = this.value;\r\n    }\r\n  }\r\n\r\n  get hasError(): boolean {\r\n    return this.errorMessages.length > 0;\r\n  }\r\n\r\n  onInput(event: Event): void {\r\n    const value = (event.target as HTMLInputElement).value;\r\n    this.value = value;\r\n    this.onChange(value);\r\n    this.valueChange.emit(value);\r\n    this.validate();\r\n  }\r\n\r\n  onBlur(): void {\r\n    this.onTouched();\r\n    this.validate();\r\n  }\r\n\r\n  writeValue(value: string): void {\r\n    this.value = value || '';\r\n    if (this.inputRef) {\r\n      this.inputRef.nativeElement.value = this.value;\r\n    }\r\n  }\r\n\r\n  registerOnChange(fn: (value: string) => void): void {\r\n    this.onChange = fn;\r\n  }\r\n\r\n  registerOnTouched(fn: () => void): void {\r\n    this.onTouched = fn;\r\n  }\r\n\r\n  setDisabledState(isDisabled: boolean): void {\r\n    this.disabled = isDisabled;\r\n  }\r\n\r\n  validate(control?: AbstractControl): ValidationErrors | null {\r\n    this.errorMessages = [];\r\n\r\n    if (this.required && !this.value) {\r\n      this.errorMessages.push('This field is required');\r\n    }\r\n\r\n    if (this.minLength && this.value.length < this.minLength) {\r\n      this.errorMessages.push(`Minimum length is ${this.minLength} characters`);\r\n    }\r\n\r\n    if (this.maxLength && this.value.length > this.maxLength) {\r\n      this.errorMessages.push(`Maximum length is ${this.maxLength} characters`);\r\n    }\r\n\r\n    if (this.type === 'email' && this.value && !this.isValidEmail(this.value)) {\r\n      this.errorMessages.push('Please enter a valid email address');\r\n    }\r\n\r\n    if (this.pattern) {\r\n      const regex = typeof this.pattern === 'string' ? new RegExp(this.pattern) : this.pattern;\r\n      if (this.value && !regex.test(this.value)) {\r\n        this.errorMessages.push('Invalid format');\r\n      }\r\n    }\r\n\r\n    if (this.type === 'number') {\r\n      const numValue = Number(this.value);\r\n      if (this.min !== undefined && numValue < this.min) {\r\n        this.errorMessages.push(`Minimum value is ${this.min}`);\r\n      }\r\n      if (this.max !== undefined && numValue > this.max) {\r\n        this.errorMessages.push(`Maximum value is ${this.max}`);\r\n      }\r\n    }\r\n\r\n    return this.hasError ? { errors: this.errorMessages } : null;\r\n  }\r\n\r\n  private isValidEmail(email: string): boolean {\r\n    return /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email);\r\n  }\r\n}",
+            "sourceCode": "import {\r\n  Component,\r\n  Input,\r\n  Output,\r\n  EventEmitter,\r\n  forwardRef,\r\n  ViewChild,\r\n  ElementRef,\r\n  AfterViewInit,\r\n} from '@angular/core';\r\nimport {\r\n  NG_VALUE_ACCESSOR,\r\n  ControlValueAccessor,\r\n  NG_VALIDATORS,\r\n  Validator,\r\n  AbstractControl,\r\n  ValidationErrors,\r\n  FormsModule,\r\n  ReactiveFormsModule,\r\n  FormControl,\r\n} from '@angular/forms';\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatFormFieldModule } from '@angular/material/form-field';\r\nimport { MatInputModule } from '@angular/material/input';\r\n@Component({\r\n  selector: 'app-form-field',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    FormsModule,\r\n    ReactiveFormsModule,\r\n    MatFormFieldModule,\r\n    MatInputModule,\r\n  ],\r\n  template: `\r\n    <div class=\"form-field\" [class.invalid]=\"hasError\">\r\n      <label *ngIf=\"label\" [for]=\"id\">{{ label }}</label>\r\n\r\n      <div class=\"input-container\">\r\n        <input\r\n          #input\r\n          [id]=\"id\"\r\n          [type]=\"type\"\r\n          [value]=\"value\"\r\n          [placeholder]=\"placeholder\"\r\n          [disabled]=\"disabled\"\r\n          [formControl]=\"formControl\"\r\n          (input)=\"onInput($event)\"\r\n          (blur)=\"onBlur()\"\r\n        />\r\n\r\n        <ng-content select=\"[suffix]\"></ng-content>\r\n      </div>\r\n\r\n      <div *ngIf=\"hasError\" class=\"error-messages\">\r\n        <div *ngFor=\"let error of errorMessages\" class=\"error-message\">\r\n          {{ error }}\r\n        </div>\r\n      </div>\r\n    </div>\r\n  `,\r\n  styles: [\r\n    `\r\n      .form-field {\r\n        margin-bottom: 1rem;\r\n        width: 100%;\r\n      }\r\n\r\n      label {\r\n        display: block;\r\n        margin-bottom: 0.5rem;\r\n        font-weight: 500;\r\n      }\r\n\r\n      .input-container {\r\n        display: flex;\r\n        align-items: center;\r\n        border: 1px solid #ccc;\r\n        border-radius: 4px;\r\n        padding: 0.5rem;\r\n        transition: border-color 0.3s;\r\n      }\r\n\r\n      .input-container input {\r\n        flex: 1;\r\n        border: none;\r\n        outline: none;\r\n        background: transparent;\r\n      }\r\n\r\n      .form-field.invalid .input-container {\r\n        border-color: #e74c3c;\r\n      }\r\n\r\n      .error-messages {\r\n        margin-top: 0.5rem;\r\n        color: #e74c3c;\r\n        font-size: 0.875rem;\r\n      }\r\n\r\n      .error-message {\r\n        margin-top: 0.25rem;\r\n      }\r\n    `,\r\n  ],\r\n  providers: [\r\n    {\r\n      provide: NG_VALUE_ACCESSOR,\r\n      useExisting: forwardRef(() => FormFieldComponent),\r\n      multi: true,\r\n    },\r\n    {\r\n      provide: NG_VALIDATORS,\r\n      useExisting: forwardRef(() => FormFieldComponent),\r\n      multi: true,\r\n    },\r\n  ],\r\n})\r\nexport class FormFieldComponent\r\n  implements ControlValueAccessor, Validator, AfterViewInit\r\n{\r\n  @Input() id: string = '';\r\n  @Input() label: string = '';\r\n  @Input() type: 'text' | 'email' | 'password' | 'number' | 'date' = 'text';\r\n  @Input() placeholder: string = '';\r\n  @Input() disabled: boolean = false;\r\n  @Input() required: boolean = false;\r\n  @Input() minLength?: number;\r\n  @Input() maxLength?: number;\r\n  @Input() pattern?: string | RegExp;\r\n  @Input() min?: number;\r\n  @Input() max?: number;\r\n  @Input() formControl!: FormControl;\r\n\r\n  @Output() valueChange = new EventEmitter<string>();\r\n\r\n  @ViewChild('input') inputRef?: ElementRef<HTMLInputElement>;\r\n\r\n  value: string = '';\r\n  errorMessages: string[] = [];\r\n\r\n  private onChange: (value: string) => void = () => {};\r\n  private onTouched: () => void = () => {};\r\n\r\n  ngAfterViewInit() {\r\n    if (this.inputRef) {\r\n      this.inputRef.nativeElement.value = this.value;\r\n    }\r\n  }\r\n\r\n  get hasError(): boolean {\r\n    return this.errorMessages.length > 0;\r\n  }\r\n\r\n  onInput(event: Event): void {\r\n    const value = (event.target as HTMLInputElement).value;\r\n    this.value = value;\r\n    this.onChange(value);\r\n    this.valueChange.emit(value);\r\n    this.validate();\r\n  }\r\n\r\n  onBlur(): void {\r\n    this.onTouched();\r\n    this.validate();\r\n  }\r\n\r\n  writeValue(value: string): void {\r\n    this.value = value || '';\r\n    if (this.inputRef) {\r\n      this.inputRef.nativeElement.value = this.value;\r\n    }\r\n  }\r\n\r\n  registerOnChange(fn: (value: string) => void): void {\r\n    this.onChange = fn;\r\n  }\r\n\r\n  registerOnTouched(fn: () => void): void {\r\n    this.onTouched = fn;\r\n  }\r\n\r\n  setDisabledState(isDisabled: boolean): void {\r\n    this.disabled = isDisabled;\r\n    if (isDisabled) {\r\n      this.formControl.disable({ emitEvent: false });\r\n    } else {\r\n      this.formControl.enable({ emitEvent: false });\r\n    }\r\n  }\r\n\r\n  validate(control?: AbstractControl): ValidationErrors | null {\r\n    this.errorMessages = [];\r\n\r\n    if (this.required && !this.value) {\r\n      this.errorMessages.push('This field is required');\r\n    }\r\n\r\n    if (this.minLength && this.value.length < this.minLength) {\r\n      this.errorMessages.push(`Minimum length is ${this.minLength} characters`);\r\n    }\r\n\r\n    if (this.maxLength && this.value.length > this.maxLength) {\r\n      this.errorMessages.push(`Maximum length is ${this.maxLength} characters`);\r\n    }\r\n\r\n    if (this.type === 'email' && this.value && !this.isValidEmail(this.value)) {\r\n      this.errorMessages.push('Please enter a valid email address');\r\n    }\r\n\r\n    if (this.pattern) {\r\n      const regex =\r\n        typeof this.pattern === 'string'\r\n          ? new RegExp(this.pattern)\r\n          : this.pattern;\r\n      if (this.value && !regex.test(this.value)) {\r\n        this.errorMessages.push('Invalid format');\r\n      }\r\n    }\r\n\r\n    if (this.type === 'number') {\r\n      const numValue = Number(this.value);\r\n      if (this.min !== undefined && numValue < this.min) {\r\n        this.errorMessages.push(`Minimum value is ${this.min}`);\r\n      }\r\n      if (this.max !== undefined && numValue > this.max) {\r\n        this.errorMessages.push(`Maximum value is ${this.max}`);\r\n      }\r\n    }\r\n\r\n    return this.hasError ? { errors: this.errorMessages } : null;\r\n  }\r\n\r\n  private isValidEmail(email: string): boolean {\r\n    return /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email);\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": "\n    .form-field {\n      margin-bottom: 1rem;\n      width: 100%;\n    }\n\n    label {\n      display: block;\n      margin-bottom: 0.5rem;\n      font-weight: 500;\n    }\n\n    .input-container {\n      display: flex;\n      align-items: center;\n      border: 1px solid #ccc;\n      border-radius: 4px;\n      padding: 0.5rem;\n      transition: border-color 0.3s;\n    }\n\n    .input-container input {\n      flex: 1;\n      border: none;\n      outline: none;\n      background: transparent;\n    }\n\n    .form-field.invalid .input-container {\n      border-color: #e74c3c;\n    }\n\n    .error-messages {\n      margin-top: 0.5rem;\n      color: #e74c3c;\n      font-size: 0.875rem;\n    }\n\n    .error-message {\n      margin-top: 0.25rem;\n    }\n  \n",
+            "stylesData": "\n      .form-field {\n        margin-bottom: 1rem;\n        width: 100%;\n      }\n\n      label {\n        display: block;\n        margin-bottom: 0.5rem;\n        font-weight: 500;\n      }\n\n      .input-container {\n        display: flex;\n        align-items: center;\n        border: 1px solid #ccc;\n        border-radius: 4px;\n        padding: 0.5rem;\n        transition: border-color 0.3s;\n      }\n\n      .input-container input {\n        flex: 1;\n        border: none;\n        outline: none;\n        background: transparent;\n      }\n\n      .form-field.invalid .input-container {\n        border-color: #e74c3c;\n      }\n\n      .error-messages {\n        margin-top: 0.5rem;\n        color: #e74c3c;\n        font-size: 0.875rem;\n      }\n\n      .error-message {\n        margin-top: 0.25rem;\n      }\n    \n",
             "extends": [],
             "implements": [
                 "ControlValueAccessor",
@@ -705,7 +721,7 @@
                         "name": "hasError",
                         "type": "boolean",
                         "returnType": "boolean",
-                        "line": 176
+                        "line": 151
                     }
                 }
             }
@@ -794,6 +810,142 @@
                 }
             ],
             "stylesData": "",
+            "extends": []
+        },
+        {
+            "name": "MaterialFormFieldComponent",
+            "id": "component-MaterialFormFieldComponent-8f446cf29deb4ea93adfb517e6d95e462265e34b21ba9185de84fe65b0f13efd2dc999862644cf5b9327204e5e55c6a257e20880c273a05be572cdd33de4a902",
+            "file": "src/app/shared/material-form-field/material-form-field.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-material-form-field",
+            "styleUrls": [],
+            "styles": [
+                "\n      :host {\n        display: block;\n        margin-bottom: 1rem;\n      }\n      ::ng-deep\n        .mat-form-field-appearance-outline.mat-form-field-invalid\n        .mat-form-field-outline {\n        color: #e74c3c;\n        border-color: #e74c3c !important;\n      }\n      ::ng-deep .mat-error {\n        color: #e74c3c !important;\n      }\n    "
+            ],
+            "template": "<mat-form-field appearance=\"outline\" class=\"w-full\">\n  <mat-label *ngIf=\"label\">{{ label }}</mat-label>\n  <input\n    matInput\n    [type]=\"type\"\n    [placeholder]=\"placeholder\"\n    [formControl]=\"formControl\"\n    [min]=\"min\"\n    [max]=\"max\"\n    [attr.pattern]=\"pattern\"\n    [attr.minlength]=\"minLength\"\n    [attr.maxlength]=\"maxLength\"\n  />\n  <mat-error *ngIf=\"formControl.hasError('required')\"\n    >This field is required.</mat-error\n  >\n  <mat-error *ngIf=\"formControl.hasError('email')\"\n    >Please enter a valid email.</mat-error\n  >\n  <mat-error *ngIf=\"formControl.hasError('minlength')\">\n    Minimum\n    {{ formControl.getError('minlength').requiredLength }} characters\n    required.\n  </mat-error>\n  <mat-error *ngIf=\"formControl.hasError('maxlength')\">\n    Maximum\n    {{ formControl.getError('maxlength').requiredLength }} characters\n    allowed.\n  </mat-error>\n  <mat-error *ngIf=\"formControl.hasError('pattern')\">\n    Invalid format.\n  </mat-error>\n  <mat-error *ngIf=\"formControl.hasError('min')\">\n    Minimum value is {{ min }}.\n  </mat-error>\n  <mat-error *ngIf=\"formControl.hasError('max')\">\n    Maximum value is {{ max }}.\n  </mat-error>\n</mat-form-field>\n",
+            "templateUrl": [],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [
+                {
+                    "required": true,
+                    "name": "formControl",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "optional": false,
+                    "line": 85,
+                    "type": "FormControl",
+                    "decorators": []
+                },
+                {
+                    "name": "label",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 77,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "max",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 81,
+                    "type": "number",
+                    "decorators": []
+                },
+                {
+                    "name": "maxLength",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 83,
+                    "type": "number",
+                    "decorators": []
+                },
+                {
+                    "name": "min",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 80,
+                    "type": "number",
+                    "decorators": []
+                },
+                {
+                    "name": "minLength",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 82,
+                    "type": "number",
+                    "decorators": []
+                },
+                {
+                    "name": "pattern",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 84,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "placeholder",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 79,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "type",
+                    "defaultValue": "'text'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 78,
+                    "type": "\"text\" | \"email\" | \"password\" | \"number\" | \"date\"",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "CommonModule",
+                    "type": "module"
+                },
+                {
+                    "name": "FormsModule",
+                    "type": "module"
+                },
+                {
+                    "name": "ReactiveFormsModule",
+                    "type": "module"
+                },
+                {
+                    "name": "MatFormFieldModule",
+                    "type": "module"
+                },
+                {
+                    "name": "MatInputModule",
+                    "type": "module"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, Input, Output, EventEmitter } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';\r\nimport { MatFormFieldModule } from '@angular/material/form-field';\r\nimport { MatInputModule } from '@angular/material/input';\r\n\r\n@Component({\r\n  selector: 'app-material-form-field',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    FormsModule,\r\n    ReactiveFormsModule,\r\n    MatFormFieldModule,\r\n    MatInputModule,\r\n  ],\r\n  template: `\r\n    <mat-form-field appearance=\"outline\" class=\"w-full\">\r\n      <mat-label *ngIf=\"label\">{{ label }}</mat-label>\r\n      <input\r\n        matInput\r\n        [type]=\"type\"\r\n        [placeholder]=\"placeholder\"\r\n        [formControl]=\"formControl\"\r\n        [min]=\"min\"\r\n        [max]=\"max\"\r\n        [attr.pattern]=\"pattern\"\r\n        [attr.minlength]=\"minLength\"\r\n        [attr.maxlength]=\"maxLength\"\r\n      />\r\n      <mat-error *ngIf=\"formControl.hasError('required')\"\r\n        >This field is required.</mat-error\r\n      >\r\n      <mat-error *ngIf=\"formControl.hasError('email')\"\r\n        >Please enter a valid email.</mat-error\r\n      >\r\n      <mat-error *ngIf=\"formControl.hasError('minlength')\">\r\n        Minimum\r\n        {{ formControl.getError('minlength').requiredLength }} characters\r\n        required.\r\n      </mat-error>\r\n      <mat-error *ngIf=\"formControl.hasError('maxlength')\">\r\n        Maximum\r\n        {{ formControl.getError('maxlength').requiredLength }} characters\r\n        allowed.\r\n      </mat-error>\r\n      <mat-error *ngIf=\"formControl.hasError('pattern')\">\r\n        Invalid format.\r\n      </mat-error>\r\n      <mat-error *ngIf=\"formControl.hasError('min')\">\r\n        Minimum value is {{ min }}.\r\n      </mat-error>\r\n      <mat-error *ngIf=\"formControl.hasError('max')\">\r\n        Maximum value is {{ max }}.\r\n      </mat-error>\r\n    </mat-form-field>\r\n  `,\r\n  styles: [\r\n    `\r\n      :host {\r\n        display: block;\r\n        margin-bottom: 1rem;\r\n      }\r\n      ::ng-deep\r\n        .mat-form-field-appearance-outline.mat-form-field-invalid\r\n        .mat-form-field-outline {\r\n        color: #e74c3c;\r\n        border-color: #e74c3c !important;\r\n      }\r\n      ::ng-deep .mat-error {\r\n        color: #e74c3c !important;\r\n      }\r\n    `,\r\n  ],\r\n})\r\nexport class MaterialFormFieldComponent {\r\n  @Input() label = '';\r\n  @Input() type: 'text' | 'email' | 'password' | 'number' | 'date' = 'text';\r\n  @Input() placeholder = '';\r\n  @Input() min?: number;\r\n  @Input() max?: number;\r\n  @Input() minLength?: number;\r\n  @Input() maxLength?: number;\r\n  @Input() pattern?: string;\r\n  @Input({ required: true }) formControl!: FormControl;\r\n}\r\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "\n      :host {\n        display: block;\n        margin-bottom: 1rem;\n      }\n      ::ng-deep\n        .mat-form-field-appearance-outline.mat-form-field-invalid\n        .mat-form-field-outline {\n        color: #e74c3c;\n        border-color: #e74c3c !important;\n      }\n      ::ng-deep .mat-error {\n        color: #e74c3c !important;\n      }\n    \n",
             "extends": []
         },
         {
@@ -1120,7 +1272,7 @@
     },
     "routes": [],
     "coverage": {
-        "count": 11,
+        "count": 10,
         "status": "low",
         "files": [
             {
@@ -1178,7 +1330,16 @@
                 "linktype": "component",
                 "name": "FormFieldComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/27",
+                "coverageCount": "0/28",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/material-form-field/material-form-field.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "MaterialFormFieldComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/10",
                 "status": "low"
             },
             {
